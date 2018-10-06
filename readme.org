@@ -6,25 +6,50 @@ This repository is for playing around with various tools and frameworks for topo
 The different folders will (hopefully) be written in a literate programming style using org-mode and org-babel. A guide to getting started with literate programming in R can be found [[https://orgmode.org/worg/org-contrib/babel/how-to-use-Org-Babel-for-R.html][here]]. The tutorial [[http://howardism.org/Technical/Emacs/literate-programming-tutorial.html][here]] can also be useful, in particular for setting up tangling.
 
 * Tangle
-
 ** Header
 I have the following header to work with org-babel.
 #+BEGIN_EXAMPLE
 #+BABEL: :session *R* :cache yes :results output graphics :exports both :tangle yes
 #+END_EXAMPLE
-This appears to do nothing. Instead, use [[Multiple files]].
+This appears to do nothing. Instead, use the property drawer.
 
-** Multiple files
+** Property drawer
 To get tangle to work, and output multiple files from the same org document, I found property-drawers to be the easiest solution. In a given section, add a property drawer with
 #+BEGIN_EXAMPLE
 :PROPERTIES:
-:header-args: :tangle tutorial.R :cache yes
+:header-args: :results output silent :session *R* :tangle filename.R
 :END:
 #+END_EXAMPLE
 This can be done with C-c C-x p, entering header-args as the property and the rest of the line as the value.
+#+BEGIN_EXAMPLE
+:results output silent
+#+END_EXAMPLE
+Prevents the result-drawer from appearing when code is evaluated.
+#+BEGIN_EXAMPLE
+:session *R*
+#+END_EXAMPLE
+Makes all code run in the same session, so variables defined in another code block are available. The session name can be changed if some code needs to be isolated.
+#+BEGIN_EXAMPLE
+:tangle filename.R
+#+END_EXAMPLE
+Defines which file to tangle the code to.
+
+Another useful option is
+#+BEGIN_EXAMPLE
+:eval never-export
+#+END_EXAMPLE
+This prevents the code from running every time you export from org to another format. Particularly useful if you include one-time setup code to install libraries.
+
+** Graphics
+If the code generates graphics, the following options allow you to display the file in the buffer.
+#+BEGIN_EXAMPLE
+BEGIN_SRC R :results output graphics :file ./images/persistence-square.png
+plot(data)
+END_SRC
+#+END_EXAMPLE
+First we declare that this generates graphical output, then which file to store it in. The file can the be presented in the document as usual.
 
 * Issues
-
 ** R libraries
 To get R to install libraries on linux, I needed to change /usr/local/lib/R/site-library to writable:
 #+BEGIN_SRC sh
@@ -36,7 +61,7 @@ Alternatively, you could use a local library but this seems like the easiest way
 There seems to be some issue with org-babel and sessions. The following piece of code works fine with org-ctrl-c-ctrl-c (C-c C-c):
 #+BEGIN_EXAMPLE
 #+BEGIN_SRC R
-1 + 1k
+1 + 1
 #+END_SRC
 #+END_EXAMPLE
 But this code makes emacs hang after confirming the working directory:
@@ -58,6 +83,10 @@ BEGIN_SRC R :session *R*
 END_SRC
 #+END_EXAMPLE
 
-For now, I'll stick to tangling and working with the R file directly, but this adds an extra step and is a bit annoying.
++For now, I'll stick to tangling and working with the R file directly, but this adds an extra step and is a bit annoying. The only info I could find was the following StackExchange post: [[https://emacs.stackexchange.com/questions/19735/emacs-freezes-with-any-org-babel-snippet-using-session]]+
 
-The only info I could find was the following StackExchange post: [[https://emacs.stackexchange.com/questions/19735/emacs-freezes-with-any-org-babel-snippet-using-session]]
+It seems that if you add
+#+BEGIN_EXAMPLE
+:results output verbatim
+#+END_EXAMPLE
+to the header-args, everything works.

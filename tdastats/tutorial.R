@@ -1,4 +1,4 @@
-library("TDAstats")
+library(TDAstats)
 
 # point cloud: uniform random points in unit square (2-dimensional)
 data1 <- cbind(runif(100), runif(100))
@@ -14,5 +14,11 @@ circ.hom <- calculate_homology(circ, dim = 1)
 # visualize first dataset as persistence diagram
 plot_persist(data1.hom)
 
+# visualize first dataset as persistence diagram
+plot_barcode(data1.hom)
+
 # visualize second dataset as topological barcode
 plot_barcode(circ.hom)
+
+# visualize second dataset as topological barcode
+plot_persist(circ.hom)

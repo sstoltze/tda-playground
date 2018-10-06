@@ -1,14 +1,12 @@
 #+AUTHOR: Simon Stoltze
 #+EMAIL: sstoltze@gmail.com
-# #+PROPERTY: header-args :cache yes :tangle tdastats.R
-# #+BABEL: :session *R* :cache yes :exports both :tangle yes
-# Disabled options: :results graphics :session *R*
+#+OPTIONS: toc:nil author:nil date:nil creator:nil
 * TDAstats - A pipeline for computing persistent homology
 This is a document that tests the [[https://github.com/rrrlw/TDAstats][TDAstats]] framework for computing persistent homology.
 
 ** Installation
 :PROPERTIES:
-:header-args: :tangle install.R
+:header-args: :cache yes :results output silent :session *R-install* :tangle install.R :eval never-export
 :END:
 To install the framework, run the following code.
 #+BEGIN_SRC R
@@ -17,20 +15,19 @@ install.packages("TDAstats")
 
 ** Tutorial example
 :PROPERTIES:
-:header-args: :tangle tutorial.R :cache yes
+:header-args: :results output silent :session *R-tutorial* :tangle tutorial.R
 :END:
- # :session *R* # broken...
 The code in this sections is taken from the TDAstats github readme.
 
 First, we load the library:
 #+BEGIN_SRC R
-library("TDAstats")
+library(TDAstats)
 #+END_SRC
 
 Then we compute some simple datasets to have something to do analysis on:
 #+BEGIN_SRC R
 # point cloud: uniform random points in unit square (2-dimensional)
-data1 <- cbind(runif(100), runif(100))
+square <- cbind(runif(100), runif(100))
 
 # point cloud: points distributed uniformly around circle (2-dimensional)
 angles <- runif(100, 0, 2 * pi)
@@ -39,16 +36,43 @@ circ <- cbind(cos(angles), sin(angles))
 
 The following code computes the persistent homology of the two datasets:
 #+BEGIN_SRC R
-# calculate persistent homology for both datasets
-data1.hom <- calculate_homology(data1, dim = 1)
-circ.hom <- calculate_homology(circ, dim = 1)
+  # calculate persistent homology for both datasets
+  square.hom <- calculate_homology(square, dim = 1)
+  circ.hom <- calculate_homology(circ, dim = 1)
 #+END_SRC
 
 And finally we can visualize the results:
-#+BEGIN_SRC R
-# visualize first dataset as persistence diagram
-plot_persist(data1.hom)
+#+BEGIN_SRC R :results output graphics :file ./images/persistence-square.png
+# visualize first dataset as a persistence diagram
+plot_persist(square.hom)
+#+END_SRC
 
-# visualize second dataset as topological barcode
+#+BEGIN_SRC R :results output graphics :file ./images/barcode-square.png
+# visualize first dataset as a barcode diagram
+plot_barcode(square.hom)
+#+END_SRC
+
+#+BEGIN_SRC R :results output graphics :file ./images/persistence-circle.png
+# visualize second dataset as a persistence diagram
+plot_persist(circ.hom)
+#+END_SRC
+
+#+BEGIN_SRC R :results output graphics :file ./images/barcode-circle.png
+# visualize second dataset as a barcode diagram
 plot_barcode(circ.hom)
 #+END_SRC
+
+*** Data analysis
+Now we can look at the generated plots.
+
+**** Square
+[[./images/persistence-square.png]]
+[[./images/barcode-square.png]]
+
+For the square, it seems like the 0^th dimensional homology has a single surviving generator, indicating that the square is connected. Meanwhile, most of the 1^st dimensional generators appear only shortly and then disappear, which indicates that the square has no homology in degree 1 as expected.
+
+**** Circle
+[[./images/persistence-circle.png]]
+[[./images/barcode-circle.png]]
+
+For the circle, we see that the 0^th homology again looks simple, while the first dimensional generator appears relatively early and survives for a long time. This indicates that the circle is probably connected and has a single generator of the homology in degree 1.
