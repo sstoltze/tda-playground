@@ -4,7 +4,7 @@
 # #+BABEL: :session *R* :cache yes :exports both :tangle yes
 # Disabled options: :results graphics :session *R*
 * TDAstats - A pipeline for computing persistent homology
-This is a document that tests the framework [[https://github.com/rrrlw/TDAstats][TDAstats]] framework for computing persistent homology.
+This is a document that tests the [[https://github.com/rrrlw/TDAstats][TDAstats]] framework for computing persistent homology.
 
 ** Installation
 :PROPERTIES:
