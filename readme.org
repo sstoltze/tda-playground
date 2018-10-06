@@ -58,6 +58,14 @@ sudo chmod a+w /usr/local/lib/R/site-library/
 Alternatively, you could use a local library but this seems like the easiest way to do it.
 
 ** Sessions
+*Update:* It seems that if you add
+#+BEGIN_EXAMPLE
+:results output <silent/verbatim/...>
+#+END_EXAMPLE
+to the header-args, the following is no longer a problem.
+
+-----
+
 There seems to be some issue with org-babel and sessions. The following piece of code works fine with org-ctrl-c-ctrl-c (C-c C-c):
 #+BEGIN_EXAMPLE
 #+BEGIN_SRC R
@@ -73,20 +81,14 @@ But this code makes emacs hang after confirming the working directory:
 The above snippets do not export to github in a readable fashion, so to illustrate the problem they will be repeated with the #+ in front of the BEGIN and END blocks removed. The first uses
 #+BEGIN_EXAMPLE
 BEGIN_SRC R
-1+1
+1 + 1
 END_SRC
 #+END_EXAMPLE
 while the next uses
 #+BEGIN_EXAMPLE
 BEGIN_SRC R :session *R*
-1+1
+1 + 1
 END_SRC
 #+END_EXAMPLE
 
-+For now, I'll stick to tangling and working with the R file directly, but this adds an extra step and is a bit annoying. The only info I could find was the following StackExchange post: [[https://emacs.stackexchange.com/questions/19735/emacs-freezes-with-any-org-babel-snippet-using-session]]+
-
-It seems that if you add
-#+BEGIN_EXAMPLE
-:results output verbatim
-#+END_EXAMPLE
-to the header-args, everything works.
+For now, I'll stick to tangling and working with the R file directly, but this adds an extra step and is a bit annoying. The only info I could find was the following StackExchange post: [[https://emacs.stackexchange.com/questions/19735/emacs-freezes-with-any-org-babel-snippet-using-session]]
