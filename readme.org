@@ -92,3 +92,8 @@ END_SRC
 #+END_EXAMPLE
 
 For now, I'll stick to tangling and working with the R file directly, but this adds an extra step and is a bit annoying. The only info I could find was the following StackExchange post: [[https://emacs.stackexchange.com/questions/19735/emacs-freezes-with-any-org-babel-snippet-using-session]]
+
+* Literature
+Some things to look into in the future:
+- [[https://www.isi.it/media/26][Topological analysis of data]]
+- [[https://www.math.kth.se/matstat/seminarier/reports/M-exjobb17/171220b.pdf][An exploration of topological properties of high-frequency one-dimensional financial time series data using TDA]]
