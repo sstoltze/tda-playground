@@ -160,8 +160,7 @@ Plot it:
 cloud(z ~ x + y)
 #+END_SRC
 
-#+RESULTS:
-[[file:./images/data-torus.png]]
+[[./images/data-torus.png]]
 
 #+BEGIN_SRC R :results silent
 torus.hom = calculate_homology(torus, dim=2)
@@ -189,21 +188,18 @@ torus_circ <- cbind(cos(angles1), sin(angles1), cos(angles2), sin(angles2))
 torus_circ.hom = calculate_homology(torus_circ, dim=2)
 #+END_SRC
 
-#+BEGIN_SRC R :results graphics :file ./images/persistent-torus-circ.png
+#+BEGIN_SRC R :results graphics silent :file ./images/persistent-torus-circ.png
 # Persistent homology
 plot_persist(torus_circ.hom)
 #+END_SRC
+[[./images/persistent-torus-circ.png]]
 
-#+RESULTS:
-[[file:./images/persistent-torus-circ.png]]
-
-#+BEGIN_SRC R :results graphics :file ./images/barcode-torus-circ.png
+#+BEGIN_SRC R :results graphics silent :file ./images/barcode-torus-circ.png
 # Barcode homology
 plot_barcode(torus_circ.hom)
 #+END_SRC
 
-#+RESULTS:
-[[file:./images/barcode-torus-circ.png]]
+[[./images/barcode-torus-circ.png]]
 
 We can also look at a circle in a different way, as a circle on a torus. This gives
 #+BEGIN_SRC R :results silent
@@ -213,18 +209,14 @@ torus_circ_curve <- cbind(cos(angles), sin(angles), cos(angles), sin(angles))
 torus_circ_curve.hom = calculate_homology(torus_circ_curve, dim=2)
 #+END_SRC
 
-#+BEGIN_SRC R :results graphics :file ./images/persistent-torus-circ-curve.png
+#+BEGIN_SRC R :results silent graphics :file ./images/persistent-torus-circ-curve.png
 # Persistent homology
 plot_persist(torus_circ_curve.hom)
 #+END_SRC
+[[./images/persistent-torus-circ-curve.png]]
 
-#+RESULTS:
-[[file:./images/persistent-torus-circ.png]]
-
-#+BEGIN_SRC R :results graphics :file ./images/barcode-torus-circ-curve.png
+#+BEGIN_SRC R :results graphics silent :file ./images/barcode-torus-circ-curve.png
 # Barcode homology
 plot_barcode(torus_circ_curve.hom)
 #+END_SRC
-
-#+RESULTS:
-[[file:./images/barcode-torus-circ.png]]
+[[./images/barcode-torus-circ-curve.png]]
