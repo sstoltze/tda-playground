@@ -146,8 +146,8 @@ Lets look at two different tori:
 #+BEGIN_SRC R :results silent
 library(TDAstats)
 library(lattice)
-u = runif(400,0,2*pi)
-v = runif(400,0,2*pi)
+u = runif(200,0,2*pi)
+v = runif(200,0,2*pi)
 r = 1
 c = 5
 x = (c+r*cos(v))*cos(u)
